@@ -13,6 +13,7 @@ products to sell and how to allocate capital to maximize returns.
 creating a dynamic and competitive marketplace.
 
 Requirements:
+
 To run this project, you will need:
 
 1. Python 3.6 or higher
