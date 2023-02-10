@@ -1,7 +1,7 @@
 # Analytica
 Welcome to the Ecommerce Analytics and Future Predictions repository! This project is a virtual marketplace for ecommerce sellers and wholesalers that utilizes a reverse auctioning system.
 
-Features:
+# Features:
 
 1. Ecommerce sales insights and forecasts: Analytica helps sellers and wholesalers make informed decisions by providing data 
 and insights on market trends and the performance of individual products, as well as making predictions on future sales using machine learning algorithms.
@@ -12,7 +12,7 @@ products to sell and how to allocate capital to maximize returns.
 3. Virtual marketplace with reverse auctioning system: Sellers can name their price for products and wholesalers can place bids to purchase them, 
 creating a dynamic and competitive marketplace.
 
-Requirements:
+# Requirements:
 
 To run this project, you will need:
 
