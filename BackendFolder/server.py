@@ -35,6 +35,7 @@ def salesforecast():
 @app.route('/dashboardstats', methods=['POST', 'GET'])
 @flask_cors.cross_origin()
 def dashboardstats():
+    analyzer.getSellerListings("toshiba laptop")
     print("called")
     option=request.json.get('category')
     responsedata = analyzer.dashboardstats(option)

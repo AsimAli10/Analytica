@@ -11,7 +11,8 @@ import pandas as pd
 # import parsedatetime
 import matplotlib.pyplot as plt
 from pmdarima.arima import ADFTest
-
+import requests
+import re
 
 class ProductCatalouge:
     def __init__(self):
@@ -178,3 +179,41 @@ class ProductCatalouge:
         elif self.FutureHomeAppliances[-1] > self.FutureMobiles[-1] and self.FutureHomeAppliances[-1] > self.FutureLaptops[-1]:
             product+= "Home Appliances."
         return product
+    
+    # Define a function to scrape the sellers information from a given e-commerce platform
+    def scrape_sellers(self, url, seller_selector):
+    # Send a GET request to the e-commerce platform search results page
+        response = requests.get(url)
+        with open("data.html", "w", encoding="utf-8") as f:
+            f.write(response.text)
+        with open("data.html", "r", encoding="utf-8") as f:
+            html_code = f.read()
+
+        pattern = r'sellerName":"([^"]+)"'
+        pattern1 = r'ratingScore":"([^"]*)"'
+        pattern2 = r'productUrl":"([^"]*)"'
+
+        seller_names = re.findall(pattern, html_code)
+        seller_ratings = re.findall(pattern1, html_code)
+        product_urls = re.findall(pattern2, html_code)
+
+        # Replace empty ratings with '0'
+        seller_ratings = [rating if rating else '0' for rating in seller_ratings]
+
+        # Create a list of tuples containing seller names, ratings, and product URLs
+        seller_info = list(zip(seller_names, seller_ratings, product_urls))
+
+        # Sort the seller info list by ratings (highest to lowest)
+        sorted_sellers = sorted(seller_info, key=lambda x: x[1], reverse=True)
+
+        # Filter out URLs with 0 ratings
+        sorted_sellers = [seller for seller in sorted_sellers if seller[1] != '0']
+
+        return sorted_sellers
+
+
+    def getSellersList(self,product):
+        daraz_url = f"https://www.daraz.pk/catalog/?q={product}"
+        daraz_sellers = self.scrape_sellers(daraz_url, "sellerName")
+        print(daraz_sellers)
+        return daraz_sellers

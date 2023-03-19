@@ -105,6 +105,7 @@ class awsHandler:
         sql = "SELECT DealId, Product, ProductAmount, Budget, Seller.name FROM Deal INNER JOIN Seller ON Deal.RequestedBy = Seller.email WHERE DealStatus = 'Open' AND DealID NOT IN (SELECT DealID FROM DealBid WHERE Bidder = '%s')" % (email)
         self.cursor.execute(sql)
         results = self.cursor.fetchall()
+        print(results)
         return results
 
     #get bidId, product,product amount, bidamount, bidstatus, name of requestedby of all deals that bidder has bid on
@@ -185,6 +186,7 @@ class awsHandler:
         sql = "SELECT Deal.Product, Deal.ProductAmount, DealBid.BidAmount, WholeSeller.name, WholeSeller.email, WholeSeller.phoneNumber FROM DealBid INNER JOIN Deal ON DealBid.DealID = Deal.DealID INNER JOIN WholeSeller ON DealBid.Bidder = WholeSeller.email WHERE Deal.RequestedBy = '%s' AND DealBid.BidStatus = 'Accepted'" % (email)
         self.cursor.execute(sql)
         results = self.cursor.fetchall()
+        print(results)
         return results
     
     #reject the bid and update the bid status to rejected
@@ -212,4 +214,4 @@ class awsHandler:
 if __name__ == "__main__":
     db=awsHandler()
     # db.registerUser("ali","ali@gmail.com","123","12345","123","Seller")
-    print (db.getBiddedDeals("testing4@testing.com"))
+    db.getOpenDeals("saim@gmail.com")

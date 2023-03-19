@@ -74,5 +74,6 @@ class Analyzer:
     
     def getConfirmedBids(self,Bidder):
         return self.deallist.getConfirmedBids(Bidder)
-
-        
+    
+    def getSellerListings(self,product):
+        return self.productcatalouge.getSellersList(product)
