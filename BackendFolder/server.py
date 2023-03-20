@@ -35,7 +35,6 @@ def salesforecast():
 @app.route('/dashboardstats', methods=['POST', 'GET'])
 @flask_cors.cross_origin()
 def dashboardstats():
-    analyzer.getSellerListings("toshiba laptop")
     print("called")
     option=request.json.get('category')
     responsedata = analyzer.dashboardstats(option)
@@ -211,6 +210,16 @@ def getconfirmedbids():
     print(responsedata)
     return {"data": responsedata}
 
+#get sellers listing
+@app.route('/getsellerlisting', methods=['POST', 'GET'])
+@flask_cors.cross_origin()
+def getsellerlisting():
+    print("called")
+    product=request.json.get('product')
+    print(product)
+    responsedata = analyzer.getSellerListings(product)
+    print(responsedata)
+    return {"data": responsedata}
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -39,19 +39,20 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 // import axios from "axios";
 
 import Projects from "layouts/SellerListing/Projects";
+// import { useEffect } from "react";
+// import axios from "axios";
 
 function SellerListing() {
+
 
   
   return (
     <DashboardLayout>
       <DashboardNavbar />
         <MDBox>
-          <Grid container spacing={3}>
             <Grid item xs={12} md={6} lg={8}>
               <Projects />
             </Grid>
-          </Grid>
         </MDBox>
     </DashboardLayout>
   );

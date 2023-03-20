@@ -13,7 +13,7 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-import { useState } from "react";
+import { useState,useEffect } from "react";
 
 // @mui material components
 import Card from "@mui/material/Card";
@@ -29,15 +29,41 @@ import MDTypography from "components/MDTypography";
 import DataTable from "examples/Tables/DataTable";
 
 // Data
-import data from "layouts/dashboard/components/Projects/data";
+import data from "layouts/SellerListing/Projects/data";
+import axios from "axios";
+
 
 function Projects() {
-  const { columns, rows } = data();
   const [menu, setMenu] = useState(null);
 
   const openMenu = ({ currentTarget }) => setMenu(currentTarget);
   const closeMenu = () => setMenu(null);
+  const [Data, setData] = useState([]);
+  
 
+  useEffect(() => {
+    axios.post("http://localhost:5000/getsellerlisting", { product: "dell latitude" })
+        .then((response) => {
+          // console.log(response);
+          console.log(response.data.data);
+          const test = response.data.data && response.data.data.map(item => ({
+            seller: item[0],
+            price: 2000,
+            rating: parseFloat(item[1]),
+            link: item[2],
+          }));
+          setData(test)
+          console.log(Data);
+        }
+        )
+        .catch((error) => {
+          console.log(error);
+        });
+        
+  }, []);
+
+  console.log(Data);
+  const { columns, rows } = data( Data);
   const renderMenu = (
     <Menu
       id="simple-menu"
@@ -53,31 +79,21 @@ function Projects() {
       open={Boolean(menu)}
       onClose={closeMenu}
     >
-      <MenuItem onClick={closeMenu}>Action</MenuItem>
-      <MenuItem onClick={closeMenu}>Another action</MenuItem>
-      <MenuItem onClick={closeMenu}>Something else</MenuItem>
+      <MenuItem onClick={closeMenu}>Sort By Rating</MenuItem>
+      <MenuItem onClick={closeMenu}>Sort By Price</MenuItem>
     </Menu>
   );
 
   return (
-    <Card>
-      <MDBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
+    <Card >
+      <MDBox display="flex" justifyContent="space-between" alignItems="center" p={3} >
         <MDBox>
           <MDTypography variant="h6" gutterBottom>
-            Projects
+            Product Sellers
           </MDTypography>
           <MDBox display="flex" alignItems="center" lineHeight={0}>
-            <Icon
-              sx={{
-                fontWeight: "bold",
-                color: ({ palette: { info } }) => info.main,
-                mt: -0.5,
-              }}
-            >
-              done
-            </Icon>
             <MDTypography variant="button" fontWeight="regular" color="text">
-              &nbsp;<strong>30 done</strong> this month
+              &nbsp;<strong>Best Sellers</strong> 
             </MDTypography>
           </MDBox>
         </MDBox>
