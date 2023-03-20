@@ -46,6 +46,7 @@ import SalesInsights from "layouts/salesInsight";
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
 import WholeSellerDashboard from "layouts/WholeSellerDashboard";
+import SellerListing from "layouts/SellerListing";
 // @mui icons
 import Icon from "@mui/material/Icon";
 import OptimalCapitalUtilization from "layouts/OptimalCapitalUtilization";
@@ -78,34 +79,42 @@ const routes = [
   {
     type: "collapse",
     name: "Sales Insights",
-    key: "sales-insights",
+    key: "salesinsights",
     icon: <Icon fontSize="small">analytics</Icon>,
-    route: "/sales-insights",
+    route: "/salesinsights",
     component: <SalesInsights />,
   },
   {
     type: "collapse",
     name: "Sales Forecast",
-    key: "sales-forecast",
+    key: "salesforecast",
     icon: <Icon fontSize="small">insights</Icon>,
-    route: "/sales-forecast",
+    route: "/salesforecast",
     component: <SalesForecast />,
   },
   {
     type: "collapse",
     name: "Optimal Capital Structure",
-    key: "optimal-capital-structure",
+    key: "optimalcapitalUtilization",
     icon: <Icon fontSize="small">equalizer</Icon>,
-    route: "/optimal-capital-Utilization",
+    route: "/optimalcapitalUtilization",
     component: <OptimalCapitalUtilization />,
   },
   {
     type: "collapse",
     name: "Marketplace",
-    key: "Request Deal",
+    key: "RequestDeal",
     icon: <Icon fontSize="small">store</Icon>,
-    route: "/Request-Deal",
+    route: "/RequestDeal",
     component: <RequestDeal />,
+  },
+  {
+    type: "collapse",
+    name: "Seller Listing",
+    key: "SellerListing",
+    icon: <Icon fontSize="small">store</Icon>,
+    route: "/SellerListing",
+    component: <SellerListing />,
   },
 /*  {
     type: "collapse",
