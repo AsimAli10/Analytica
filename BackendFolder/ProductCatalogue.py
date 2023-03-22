@@ -181,12 +181,12 @@ class ProductCatalouge:
         return product
     
     # Define a function to scrape the sellers information from a given e-commerce platform
-    def scrape_sellers(self, url, seller_selector):
+    def getProductSellersListings(self, url, seller_selector):
     # Send a GET request to the e-commerce platform search results page
         response = requests.get(url)
-        with open("data.html", "w", encoding="utf-8") as f:
+        with open("data.html", "w", encoding="UTF-8") as f:
             f.write(response.text)
-        with open("data.html", "r", encoding="utf-8") as f:
+        with open("data.html", "r", encoding="UTF-8") as f:
             html_code = f.read()
 
         pattern = r'sellerName":"([^"]+)"'
@@ -214,6 +214,6 @@ class ProductCatalouge:
 
     def getSellersList(self,product):
         daraz_url = f"https://www.daraz.pk/catalog/?q={product}"
-        daraz_sellers = self.scrape_sellers(daraz_url, "sellerName")
-        print(daraz_sellers)
+        daraz_sellers = self.getProductSellersListings(daraz_url, "sellerName")
         return daraz_sellers
+

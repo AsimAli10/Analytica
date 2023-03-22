@@ -40,34 +40,6 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 export default function data( Data ) {
 
 
-  // const avatars = (members) =>
-  //   members.map(([image, name]) => (
-  //     <Tooltip key={name} title={name} placeholder="bottom">
-  //       <MDAvatar
-  //         src={image}
-  //         alt="name"
-  //         size="xs"
-  //         sx={{
-  //           border: ({ borders: { borderWidth }, palette: { white } }) =>
-  //             `${borderWidth[2]} solid ${white.main}`,
-  //           cursor: "pointer",
-  //           position: "relative",
-
-  //           "&:not(:first-of-type)": {
-  //             ml: -1.25,
-  //           },
-
-  //           "&:hover, &:focus": {
-  //             zIndex: "10",
-  //           },
-  //         }}
-  //       />
-  //     </Tooltip>
-  //   ));
-
-
-
-
   const Seller = ({ name }) => (
     <MDBox display="flex" alignItems="center" lineHeight={1}>
       <MDTypography variant="button" fontWeight="medium" ml={1} lineHeight={1}>
@@ -81,7 +53,7 @@ export default function data( Data ) {
       { Header: "Seller", accessor: "seller", width: "30%", align: "left" },
       { Header: "Price", accessor: "price", align: "center" },
       { Header: "Rating", accessor: "rating", align: "center" },
-      { Header: "Buy", accessor: "link", width: "10%", align: "center" },
+      { Header: "Buy", accessor: "link", width: "15%", align: "center" },
     ],
 
     rows: 

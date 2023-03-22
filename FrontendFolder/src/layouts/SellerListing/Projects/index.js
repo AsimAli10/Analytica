@@ -13,17 +13,19 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-import { useState,useEffect } from "react";
+import { useState } from "react";
 
 // @mui material components
 import Card from "@mui/material/Card";
-import Icon from "@mui/material/Icon";
+// import Icon from "@mui/material/Icon";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 
 // Analytica components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
+import MDInput from "components/MDInput";
+import UnfoldMoreIcon from '@mui/icons-material/UnfoldMore';
 
 // Analytica examples
 import DataTable from "examples/Tables/DataTable";
@@ -31,6 +33,7 @@ import DataTable from "examples/Tables/DataTable";
 // Data
 import data from "layouts/SellerListing/Projects/data";
 import axios from "axios";
+import { Grid } from "@mui/material";
 
 
 function Projects() {
@@ -39,48 +42,65 @@ function Projects() {
   const openMenu = ({ currentTarget }) => setMenu(currentTarget);
   const closeMenu = () => setMenu(null);
   const [Data, setData] = useState([]);
-  
 
-  useEffect(() => {
-    axios.post("http://localhost:5000/getsellerlisting", { product: "dell latitude" })
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      console.log(e.target.value);
+      axios.post("http://localhost:5000/getsellerlisting", { product: e.target.value })
         .then((response) => {
           // console.log(response);
-          console.log(response.data.data);
-          const test = response.data.data && response.data.data.map(item => ({
+          // console.log(response.data.data);
+          const data1 = response.data.data || [];
+          const test = data1.map(item => ({
             seller: item[0],
             price: 2000,
             rating: parseFloat(item[1]),
             link: item[2],
           }));
           setData(test)
-          console.log(Data);
+          // console.log(Data);
         }
         )
         .catch((error) => {
           console.log(error);
         });
-        
-  }, []);
+    }
+  };
 
-  console.log(Data);
+  const sortbyRating = () => {
+    const sortedData = [...Data].sort((a, b) => b.rating - a.rating);
+    setData(sortedData);
+    // console.log(Data);
+    closeMenu();
+  };
+
+  const sortbyPrice = () => {
+    const sortedData = [...Data].sort((a, b) => a.price - b.price);
+    setData(sortedData);
+    // console.log(Data);
+    closeMenu();
+  };
+
+
+  // console.log(Data);
   const { columns, rows } = data( Data);
   const renderMenu = (
     <Menu
       id="simple-menu"
       anchorEl={menu}
       anchorOrigin={{
-        vertical: "top",
-        horizontal: "left",
+        vertical: "bottom",
+        horizontal: "right",
       }}
       transformOrigin={{
         vertical: "top",
-        horizontal: "right",
+        horizontal: "left",
       }}
       open={Boolean(menu)}
       onClose={closeMenu}
     >
-      <MenuItem onClick={closeMenu}>Sort By Rating</MenuItem>
-      <MenuItem onClick={closeMenu}>Sort By Price</MenuItem>
+      <MenuItem onClick={sortbyRating}>Sort By Rating</MenuItem>
+      <MenuItem onClick={sortbyPrice}>Sort By Price</MenuItem>
     </Menu>
   );
 
@@ -88,21 +108,24 @@ function Projects() {
     <Card >
       <MDBox display="flex" justifyContent="space-between" alignItems="center" p={3} >
         <MDBox>
-          <MDTypography variant="h6" gutterBottom>
-            Product Sellers
-          </MDTypography>
-          <MDBox display="flex" alignItems="center" lineHeight={0}>
-            <MDTypography variant="button" fontWeight="regular" color="text">
-              &nbsp;<strong>Best Sellers</strong> 
-            </MDTypography>
-          </MDBox>
+          
+          <Grid container spacing={10} mt={-8} mb={0} mx={0} >
+              <Grid item mt={0} mx={20} marginLeft={-10}>
+                <MDTypography variant="h6" gutterBottom>
+                  Product Sellers
+                </MDTypography>
+              </Grid>
+              <Grid item mt={-2} marginLeft={60}>
+                <MDBox pr={1} item>
+                  <MDInput label="Search here" onKeyDown={handleKeyDown} />
+                </MDBox>
+              </Grid>
+              <Grid item mt={-1} marginLeft={-5}> 
+                <UnfoldMoreIcon onClick={openMenu}/>
+              </Grid>  
+              {renderMenu}
+            </Grid>  
         </MDBox>
-        <MDBox color="text" px={2}>
-          <Icon sx={{ cursor: "pointer", fontWeight: "bold" }} fontSize="small" onClick={openMenu}>
-            more_vert
-          </Icon>
-        </MDBox>
-        {renderMenu}
       </MDBox>
       <MDBox>
         <DataTable
