@@ -13,6 +13,7 @@ import matplotlib.pyplot as plt
 from pmdarima.arima import ADFTest
 import requests
 import re
+import json
 
 class ProductCatalouge:
     def __init__(self):
@@ -184,32 +185,39 @@ class ProductCatalouge:
     def getProductSellersListings(self, url, seller_selector):
     # Send a GET request to the e-commerce platform search results page
         response = requests.get(url)
+
         with open("data.html", "w", encoding="UTF-8") as f:
             f.write(response.text)
+
         with open("data.html", "r", encoding="UTF-8") as f:
             html_code = f.read()
 
-        pattern = r'sellerName":"([^"]+)"'
-        pattern1 = r'ratingScore":"([^"]*)"'
-        pattern2 = r'productUrl":"([^"]*)"'
+        seller_pattern = r'sellerName":"([^"]+)"'
+        seller_names = re.findall(seller_pattern, html_code)
 
-        seller_names = re.findall(pattern, html_code)
-        seller_ratings = re.findall(pattern1, html_code)
+        price_pattern = r'priceShow":"Rs\. ([^"]+)"'
+        prices = [int(p.replace(',', '')) for p in re.findall(price_pattern, html_code)]
+
+        pattern2 = r'productUrl":"(//www.daraz.pk[^"]*)"'
+
         product_urls = re.findall(pattern2, html_code)
+        product_urls = ["http:" + link for link in product_urls if "//www.daraz.pk/" in link]
 
-        # Replace empty ratings with '0'
-        seller_ratings = [rating if rating else '0' for rating in seller_ratings]
+        rating_pattern = r'"ratings":({[^}]+})'
+        ratings = []
+        for url in product_urls:
+            product_response = requests.get(url)
+            product_html = product_response.text
+            
+            rating_match = re.search(rating_pattern, product_html)
+            rating_dict = json.loads(rating_match.group(1)) if rating_match else {}
+            rating = rating_dict.get('average', '0')
+            ratings.append(rating)
 
-        # Create a list of tuples containing seller names, ratings, and product URLs
-        seller_info = list(zip(seller_names, seller_ratings, product_urls))
+        sellers = list(zip(seller_names, product_urls, ratings, prices))
+        sellers = sorted(sellers, key=lambda x: x[2], reverse=True)
 
-        # Sort the seller info list by ratings (highest to lowest)
-        sorted_sellers = sorted(seller_info, key=lambda x: x[1], reverse=True)
-
-        # Filter out URLs with 0 ratings
-        sorted_sellers = [seller for seller in sorted_sellers if seller[1] != '0']
-
-        return sorted_sellers
+        return sellers
 
 
     def getSellersList(self,product):

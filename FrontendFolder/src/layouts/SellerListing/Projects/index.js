@@ -53,9 +53,9 @@ function Projects() {
           const data1 = response.data.data || [];
           const test = data1.map(item => ({
             seller: item[0],
-            price: 2000,
-            rating: parseFloat(item[1]),
-            link: item[2],
+            price: parseFloat(item[3]),
+            rating: parseFloat(item[2]),
+            link: item[1],
           }));
           setData(test)
           // console.log(Data);
