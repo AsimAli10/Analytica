@@ -35,7 +35,7 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import MDInput from "components/MDInput";
 import { NativeSelect,FormControl,Table,TableBody,TableCell,TableRow } from "@mui/material";
 import MDButton from "components/MDButton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
 
@@ -52,16 +52,58 @@ function RequestDeal() {
   const [showBids, setShowBids] = useState(false);
   const [showconfirmedBids, setShowconfirmedBids] = useState(false); 
   const [confirmedBids, setconfirmedBids] = useState(false); 
+
+  const handledeals = () => {
+    axios.post("http://localhost:5000/getdeals", { email: JSON.parse(sessionStorage.getItem("user")) })
+    .then((response) => {
+      // console.log(response);
+      console.log(response.data.data);
+      setTableData(response.data.data);
+      setShowTable(true);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  };
+
+  const handlesallbids = () => {
+    axios.post("http://localhost:5000/getdealbids", { email: JSON.parse(sessionStorage.getItem("user")) })
+    .then((response) => {
+    // console.log(response);
+      console.log(response.data.data);
+      setBidData(response.data.data);
+      setShowBids(true);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  };
+
+  const handleconfirmedbids = () => {
+    axios.post("http://localhost:5000/getacceptedbids", { email: JSON.parse(sessionStorage.getItem("user")) })
+    .then((response) => {
+      // console.log(response);
+      console.log(response.data.data);
+      setconfirmedBids(response.data.data);
+      setShowconfirmedBids(true);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  };
+  
   const handleSubmit = () => {
-    // setRequestBy(JSON.parse(sessionStorage.getItem("user")));
-    // console.log(JSON.parse(sessionStorage.getItem("user")));
-    // setRequestBy(requestBy.at(0));
     setDealstatus("open");
     axios.post("http://127.0.0.1:5000/requestdeal", { product, quantity, budget, dealstatus, requestBy:JSON.parse(sessionStorage.getItem("user")) })
       .then((response) => {
         console.log(response);
         if (response.data.data === "success") {
           alert("Deal Requested Successfully");
+          handledeals();
+          // clear form
+          setProduct("Laptops");
+          setQuantity("");
+          setBudget("");
         }
         else {
           alert("Deal Request Failed");
@@ -73,6 +115,12 @@ function RequestDeal() {
       });
   };
 
+
+  useEffect(() => {
+    handledeals();
+    handlesallbids();
+    handleconfirmedbids();
+  }, []);
 
   return (
     <DashboardLayout>
@@ -162,22 +210,6 @@ function RequestDeal() {
                       My Deals
                     </MDTypography>
                   </Grid>
-                  <Grid item xs={12} md={6} display="flex" alignItems="flex-end" justifyContent="flex-end">
-                    <MDButton onClick={
-                      () =>{
-                      axios.post("http://localhost:5000/getdeals", { email: JSON.parse(sessionStorage.getItem("user")) })
-                      .then((response) => {
-                        // console.log(response);
-                        console.log(response.data.data);
-                        setTableData(response.data.data);
-                        setShowTable(true);
-                      }
-                      )
-                      }}
-                      variant="contained"
-                      color="info"
-                      size="medium" >Load Deals</MDButton>
-                  </Grid>
                 </Grid>
               </MDBox>
               <Grid mx={2} mt={3} mb={2} >
@@ -240,22 +272,6 @@ function RequestDeal() {
                     <MDTypography variant="h6" color="white">
                       Deal Bids
                     </MDTypography>
-                  </Grid>
-                  <Grid item xs={12} md={6} display="flex" alignItems="flex-end" justifyContent="flex-end">
-                    <MDButton onClick={
-                      () =>{
-                      axios.post("http://localhost:5000/getdealbids", { email: JSON.parse(sessionStorage.getItem("user")) })
-                      .then((response) => {
-                        // console.log(response);
-                        console.log(response.data.data);
-                        setBidData(response.data.data);
-                        setShowBids(true);
-                      }
-                      )
-                      }}
-                      variant="contained"
-                      color="info"
-                      size="medium" >Load Bids</MDButton>
                   </Grid>
                 </Grid>
               </MDBox>
@@ -342,22 +358,6 @@ function RequestDeal() {
                     <MDTypography variant="h6" color="white">
                       Confirmed Deals
                     </MDTypography>
-                  </Grid>
-                  <Grid item xs={12} md={6} display="flex" alignItems="flex-end" justifyContent="flex-end">
-                    <MDButton onClick={
-                      () =>{
-                      axios.post("http://localhost:5000/getacceptedbids", { email: JSON.parse(sessionStorage.getItem("user")) })
-                      .then((response) => {
-                        // console.log(response);
-                        console.log(response.data.data);
-                        setconfirmedBids(response.data.data);
-                        setShowconfirmedBids(true);
-                      }
-                      )
-                      }}
-                      variant="contained"
-                      color="info"
-                      size="medium" >Load Confirmed Deals</MDButton>
                   </Grid>
                 </Grid>
               </MDBox>
