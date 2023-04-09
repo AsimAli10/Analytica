@@ -33,13 +33,14 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 // import projectsTableData from "layouts/tables/data/projectsTableData";
 
 import MDInput from "components/MDInput";
-import { NativeSelect,FormControl,Table,TableBody,TableCell,TableRow } from "@mui/material";
+import { NativeSelect,FormControl } from "@mui/material";
 import MDButton from "components/MDButton";
 import { useEffect, useState } from "react";
 import axios from "axios";
 // import dealsdata from "./data/dealsTableData";
 import  dealsdata  from "./data/dealsTableData";
 import allbidsdata from "./data/dealbidsTableData";
+import confirmedbidsdata from "./data/confirmedbidsTableData";
 
 function RequestDeal() {
 
@@ -50,44 +51,43 @@ function RequestDeal() {
   // const [requestBy, setRequestBy] = useState("");
   // const [showTable, setShowTable] = useState(false); 
   // const [tableData, setTableData] = useState([]);
-  const [DealsData, setDealsData] = useState([]);
+   const [DealsData, setDealsData] = useState([]);
   //  const [BidData, setBidData] = useState([]);
   //  const [showBids, setShowBids] = useState(false);
   const [DealBidsData, setDealBidsData] = useState([]);
-  const [showconfirmedBids, setShowconfirmedBids] = useState(false); 
-  const [confirmedBids, setconfirmedBids] = useState(false); 
+  // const [showconfirmedBids, setShowconfirmedBids] = useState(false); 
+  const [confirmedBidsData, setconfirmedBidsData] = useState([]); 
   const [loading, setLoading] = useState(false);
+  let dealrows = [];
+  let dealcolumns = [];
+  let confirmedbidrows = [];
+  let confirmedbidcolumns = [];
 
   const handledeals = () => {
     axios.post("http://localhost:5000/getdeals", { email: JSON.parse(sessionStorage.getItem("user")) })
     .then((response) => {
-      const data1 = response.data.data || [];
-      const test = data1.map(item => ({
+      const data = response.data.data || [];
+      const test = data.map(item => ({
         dealid: item[0],
         dealproduct: item[1],
         dealquantity: item[2],
         dealbudget: item[3],
         dealstatus: item[4],
-        dealaction: "close",
+        dealrequestby: item[5],
         }));
         setDealsData(test);
     })
     .catch((error) => {
       console.log(error);
     });
+
+    
   };
-  const { columns, rows } = dealsdata( DealsData);
-  console.log(DealsData)
-  console.log(columns, rows)
+
   
   const handlesallbids = () => {
     axios.post("http://localhost:5000/getdealbids", { email: JSON.parse(sessionStorage.getItem("user")) })
     .then((response) => {
-    // console.log(response);
-      // console.log(response.data.data);
-      // setBidData(response.data.data);
-      // setShowBids(true);
-
       const data1 = response.data.data || [];
       const test = data1.map(item => ({
         dealbidid: item[0],
@@ -114,9 +114,19 @@ function RequestDeal() {
     axios.post("http://localhost:5000/getacceptedbids", { email: JSON.parse(sessionStorage.getItem("user")) })
     .then((response) => {
       // console.log(response);
-      console.log(response.data.data);
-      setconfirmedBids(response.data.data);
-      setShowconfirmedBids(true);
+      // console.log(response.data.data);
+      // setconfirmedBids(response.data.data);
+      // setShowconfirmedBids(true);
+      const data1 = response.data.data || [];
+      const test = data1.map(item => ({
+        confirmedproduct: item[0],
+        confirmedquantity: item[1],
+        confirmedamount: item[2],
+        bidder: item[3],
+        bidderemail: item[4],
+        biddernumber: item[5],
+        }));
+        setconfirmedBidsData(test);
     })
     .catch((error) => {
       console.log(error);
@@ -153,8 +163,11 @@ function RequestDeal() {
     handleconfirmedbids();
   },[]);
   const { bidcolumns, bidrows } = allbidsdata( DealBidsData);
-  console.log(DealBidsData)
- console.log(bidcolumns, bidrows)
+  dealcolumns=dealsdata(DealsData).columns;
+  dealrows=dealsdata(DealsData).rows;
+  confirmedbidcolumns=confirmedbidsdata(confirmedBidsData).columns;
+  confirmedbidrows=confirmedbidsdata(confirmedBidsData).rows;
+
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -247,7 +260,7 @@ function RequestDeal() {
               </MDBox>
               <MDBox>
                 <DataTable
-                  table={{ columns, rows }}
+                  table={{ columns:dealcolumns, rows:dealrows }}
                   showTotalEntries={false}
                   isSorted={false}
                   noEndBorder={false}
@@ -277,12 +290,17 @@ function RequestDeal() {
                 </Grid>
               </MDBox>       
               <MDBox>
-              {bidcolumns ? (
-                          <p>Loading...</p>
-                        ) : (
+              {bidcolumns!= null && bidrows != null ? (
                           <DataTable
-                          table={{ bidcolumns, bidrows }}
+                          table={{ columns: bidcolumns, rows: bidrows }}
+                          showTotalEntries={false}
+                          isSorted={false}
+                          noEndBorder={false}
+                          entriesPerPage={false}
                           />
+                          
+                        ) : (
+                          <p>Loading...</p>
                         )}
                 </MDBox>
                
@@ -310,7 +328,16 @@ function RequestDeal() {
                   </Grid>
                 </Grid>
               </MDBox>
-              <Grid mx={2} mt={3} mb={2} >
+              <MDBox>
+                <DataTable
+                  table={{ columns:confirmedbidcolumns, rows:confirmedbidrows }}
+                  showTotalEntries={false}
+                  isSorted={false}
+                  noEndBorder={false}
+                  entriesPerPage={false}
+                />
+              </MDBox>
+              {/* <Grid mx={2} mt={3} mb={2} >
                 {showconfirmedBids && <Table>
                   <TableBody>
                       <TableRow>
@@ -334,7 +361,7 @@ function RequestDeal() {
                     ))}
                   </TableBody>
                 </Table>}
-              </Grid>
+              </Grid> */}
             </Card>
           </Grid>
 
