@@ -47,7 +47,7 @@ export default function allbidsdata( Data ) {
         console.log(response.data.data);
         if (response.data.data === "success") {
             alert("Bid Accepted Successfully");
-            window.location.reload();
+            // window.location.reload();
         }
         else {
             alert("Bid Accept Failed");
@@ -62,7 +62,7 @@ export default function allbidsdata( Data ) {
         console.log(response.data.data);
         if (response.data.data === "success") {
             alert("Bid Rejected Successfully");
-            window.location.reload();
+            // window.location.reload();
         }
         else {
             alert("Bid Reject Failed");

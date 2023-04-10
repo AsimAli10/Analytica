@@ -48,14 +48,8 @@ function RequestDeal() {
   const [quantity, setQuantity] = useState("");
   const [budget, setBudget] = useState("");
   const [dealstatus, setDealstatus] = useState("open");
-  // const [requestBy, setRequestBy] = useState("");
-  // const [showTable, setShowTable] = useState(false); 
-  // const [tableData, setTableData] = useState([]);
-   const [DealsData, setDealsData] = useState([]);
-  //  const [BidData, setBidData] = useState([]);
-  //  const [showBids, setShowBids] = useState(false);
-  const [DealBidsData, setDealBidsData] = useState([]);
-  // const [showconfirmedBids, setShowconfirmedBids] = useState(false); 
+  const [DealsData, setDealsData] = useState([]);
+  const [DealBidsData, setDealBidsData] = useState([]); 
   const [confirmedBidsData, setconfirmedBidsData] = useState([]); 
   const [loading, setLoading] = useState(false);
   let dealrows = [];
@@ -113,10 +107,6 @@ function RequestDeal() {
   const handleconfirmedbids = () => {
     axios.post("http://localhost:5000/getacceptedbids", { email: JSON.parse(sessionStorage.getItem("user")) })
     .then((response) => {
-      // console.log(response);
-      // console.log(response.data.data);
-      // setconfirmedBids(response.data.data);
-      // setShowconfirmedBids(true);
       const data1 = response.data.data || [];
       const test = data1.map(item => ({
         confirmedproduct: item[0],
@@ -141,10 +131,6 @@ function RequestDeal() {
         if (response.data.data === "success") {
           alert("Deal Requested Successfully");
           handledeals();
-          // clear form
-          setProduct("Laptops");
-          setQuantity("");
-          setBudget("");
         }
         else {
           alert("Deal Request Failed");
@@ -302,9 +288,7 @@ function RequestDeal() {
                         ) : (
                           <p>Loading...</p>
                         )}
-                </MDBox>
-               
-               
+                </MDBox>   
             </Card>
           </Grid>
           
@@ -332,36 +316,12 @@ function RequestDeal() {
                 <DataTable
                   table={{ columns:confirmedbidcolumns, rows:confirmedbidrows }}
                   showTotalEntries={false}
-                  isSorted={false}
+                  isSorted
                   noEndBorder={false}
                   entriesPerPage={false}
+                  canSearch
                 />
               </MDBox>
-              {/* <Grid mx={2} mt={3} mb={2} >
-                {showconfirmedBids && <Table>
-                  <TableBody>
-                      <TableRow>
-                        <TableCell><strong>Product</strong></TableCell>
-                        <TableCell><strong>Quantity</strong></TableCell>
-                        <TableCell><strong>Confirmed Amount</strong></TableCell>
-                        <TableCell><strong>Bidder</strong></TableCell>
-                        <TableCell><strong>Bidder Email</strong></TableCell>
-                        <TableCell><strong>Bidder PhoneNumber</strong></TableCell>
-                      </TableRow>
-                    {
-                      confirmedBids.map((row) => (
-                        <TableRow>
-                          <TableCell>{row[0]}</TableCell>
-                          <TableCell>{row[1]}</TableCell>
-                          <TableCell>{row[2]}</TableCell>
-                          <TableCell>{row[3]}</TableCell>
-                          <TableCell>{row[4]}</TableCell>
-                          <TableCell>{row[5]}</TableCell>
-                        </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>}
-              </Grid> */}
             </Card>
           </Grid>
 

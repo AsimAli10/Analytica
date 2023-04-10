@@ -49,7 +49,8 @@ export default function dealsdata( Data ) {
       console.log(response.data.data);
       if (response.data.data === "success") {
         alert("Deal Closed Successfully");
-        window.location.reload();  }
+        // window.location.reload(); 
+       }
        else {
             alert("Deal Close Failed");
             console.log(response.data.data);
