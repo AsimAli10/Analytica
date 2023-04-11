@@ -47,8 +47,9 @@ function DataTable({
   pagination,
   isSorted,
   noEndBorder,
+  tableHeading,
 }) {
-  const defaultValue = entriesPerPage.defaultValue ? entriesPerPage.defaultValue : 10;
+  const defaultValue = entriesPerPage.defaultValue ? entriesPerPage.defaultValue : 5;
   const entries = entriesPerPage.entries
     ? entriesPerPage.entries.map((el) => el.toString())
     : ["5", "10", "15", "20", "25"];
@@ -81,11 +82,16 @@ function DataTable({
   } = tableInstance;
 
   // Set the default value for the entries per page when component mounts
-  useEffect(() => setPageSize(defaultValue || 10), [defaultValue]);
+  useEffect(() => setPageSize(defaultValue || 5), [defaultValue]);
 
   // Set the entries per page value based on the select value
   const setEntriesPerPage = (value) => setPageSize(value);
-
+  
+  // tableHeading prop type
+  DataTable.propTypes = {
+    tableHeading: PropTypes.string.isRequired,
+    // ...
+  };
   // Render the paginations
   const renderPagination = pageOptions.map((option) => (
     <MDPagination
@@ -147,10 +153,15 @@ function DataTable({
 
   return (
     <TableContainer sx={{ boxShadow: "none" }}>
-      {entriesPerPage || canSearch ? (
-        <MDBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
-          {entriesPerPage && (
-            <MDBox display="flex" alignItems="center">
+      <MDBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
+        {tableHeading && (
+          <MDBox display="flex" alignItems="center">
+            <MDTypography variant="h6">{tableHeading}</MDTypography>
+          </MDBox>
+        )}
+        {entriesPerPage || canSearch ? (
+          <MDBox display="flex" alignItems="center">
+            {entriesPerPage && (
               <Autocomplete
                 disableClearable
                 value={pageSize.toString()}
@@ -162,27 +173,24 @@ function DataTable({
                 sx={{ width: "5rem" }}
                 renderInput={(params) => <MDInput {...params} />}
               />
-              <MDTypography variant="caption" color="secondary">
-                &nbsp;&nbsp;entries per page
-              </MDTypography>
-            </MDBox>
-          )}
-          {canSearch && (
-            <MDBox width="12rem" ml="auto">
-              <MDInput
-                placeholder="Search..."
-                value={search}
-                size="small"
-                fullWidth
-                onChange={({ currentTarget }) => {
-                  setSearch(search);
-                  onSearchChange(currentTarget.value);
-                }}
-              />
-            </MDBox>
-          )}
-        </MDBox>
-      ) : null}
+            )}
+            {canSearch && (
+              <MDBox width="12rem" ml="auto">
+                <MDInput
+                  placeholder="Search..."
+                  value={search}
+                  size="small"
+                  fullWidth
+                  onChange={({ currentTarget }) => {
+                    setSearch(search);
+                    onSearchChange(currentTarget.value);
+                  }}
+                />
+              </MDBox>
+            )}
+          </MDBox>
+        ) : null}
+      </MDBox>
       <Table {...getTableProps()}>
         <MDBox component="thead">
           {headerGroups.map((headerGroup) => (

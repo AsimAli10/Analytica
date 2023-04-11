@@ -51,11 +51,7 @@ function RequestDeal() {
   const [DealsData, setDealsData] = useState([]);
   const [DealBidsData, setDealBidsData] = useState([]); 
   const [confirmedBidsData, setconfirmedBidsData] = useState([]); 
-  const [loading, setLoading] = useState(false);
-  let dealrows = [];
-  let dealcolumns = [];
-  let confirmedbidrows = [];
-  let confirmedbidcolumns = [];
+
 
   const handledeals = () => {
     axios.post("http://localhost:5000/getdeals", { email: JSON.parse(sessionStorage.getItem("user")) })
@@ -94,8 +90,6 @@ function RequestDeal() {
         dealbidreject: "reject",
         }));
         setDealBidsData(test);
-        setLoading(true);
-        console.log(loading);
     })
     .catch((error) => {
       console.log(error);
@@ -142,17 +136,16 @@ function RequestDeal() {
       });
   };
 
+  const {bidcolumns, bidrows } = allbidsdata( DealBidsData, handleconfirmedbids,handlesallbids,handledeals);
+  const {dealrows, dealcolumns}=dealsdata(DealsData, handlesallbids,handledeals);
+  const {confirmedbidrows, confirmedbidcolumns}=confirmedbidsdata(confirmedBidsData);
 
   useEffect(() => {
     handledeals();
     handlesallbids();
     handleconfirmedbids();
   },[]);
-  const { bidcolumns, bidrows } = allbidsdata( DealBidsData);
-  dealcolumns=dealsdata(DealsData).columns;
-  dealrows=dealsdata(DealsData).rows;
-  confirmedbidcolumns=confirmedbidsdata(confirmedBidsData).columns;
-  confirmedbidrows=confirmedbidsdata(confirmedBidsData).rows;
+
 
   return (
     <DashboardLayout>
@@ -224,65 +217,33 @@ function RequestDeal() {
               </Grid>
             </Card>
           </Grid>
-          <Grid item xs={12} mt={4}>
+          <Grid item xs={12} mt={2}>
             <Card>
-              <MDBox
-                mx={2}
-                mt={-3}
-                py={3}
-                px={2}
-                variant="gradient"
-                bgColor="info"
-                borderRadius="md"
-                coloredShadow="info"
-              >
-                <Grid container spacing={2}>
-                  <Grid item xs={12} md={6} mt={-1} mb={-1}>
-                    <MDTypography variant="h6" color="white">
-                      My Deals
-                    </MDTypography>
-                  </Grid>
-                </Grid>
-              </MDBox>
               <MDBox>
                 <DataTable
                   table={{ columns:dealcolumns, rows:dealrows }}
                   showTotalEntries={false}
-                  isSorted={false}
-                  noEndBorder={false}
+                  isSorted
+                  noEndBorder
                   entriesPerPage={false}
+                  tableHeading="My Deals"
+                  canSearch
                 />
               </MDBox>
             </Card>
           </Grid>
-          <Grid item xs={12} mt={4}>
+          <Grid item xs={12} mt={2}>
             <Card>
-              <MDBox
-                mx={2}
-                mt={-3}
-                py={3}
-                px={2}
-                variant="gradient"
-                bgColor="info"
-                borderRadius="lg"
-                coloredShadow="info"
-              >
-                <Grid container spacing={2}>
-                  <Grid item xs={12} md={6}>
-                    <MDTypography variant="h6" color="white">
-                      Deal Bids
-                    </MDTypography>
-                  </Grid>
-                </Grid>
-              </MDBox>       
               <MDBox>
               {bidcolumns!= null && bidrows != null ? (
                           <DataTable
                           table={{ columns: bidcolumns, rows: bidrows }}
                           showTotalEntries={false}
-                          isSorted={false}
-                          noEndBorder={false}
+                          isSorted
+                          noEndBorder
                           entriesPerPage={false}
+                          tableHeading="Deal Bids"
+                          canSearch
                           />
                           
                         ) : (
@@ -292,34 +253,17 @@ function RequestDeal() {
             </Card>
           </Grid>
           
-          <Grid item xs={12} mt={4}>
+          <Grid item xs={12} mt={2}>
             <Card>
-              <MDBox
-                mx={2}
-                mt={-3}
-                py={3}
-                px={2}
-                variant="gradient"
-                bgColor="info"
-                borderRadius="lg"
-                coloredShadow="info"
-              >
-                <Grid container spacing={2}>
-                  <Grid item xs={12} md={6}>
-                    <MDTypography variant="h6" color="white">
-                      Confirmed Deals
-                    </MDTypography>
-                  </Grid>
-                </Grid>
-              </MDBox>
               <MDBox>
                 <DataTable
                   table={{ columns:confirmedbidcolumns, rows:confirmedbidrows }}
                   showTotalEntries={false}
                   isSorted
-                  noEndBorder={false}
+                  noEndBorder
                   entriesPerPage={false}
                   canSearch
+                  tableHeading="Confirmed Deals"
                 />
               </MDBox>
             </Card>

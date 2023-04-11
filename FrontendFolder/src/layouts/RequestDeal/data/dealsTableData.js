@@ -1,44 +1,11 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable react/function-component-definition */
-/**
-=========================================================
-* Analytica - v2.1.0
-=========================================================
 
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
-// @mui material components
-// import Tooltip from "@mui/material/Tooltip";
-// import MDBox from "components/MDBox";
-// import MDTypography from "components/MDTypography";
-// import MDAvatar from "components/MDAvatar";
-// import MDProgress from "components/MDProgress";
-
-// Images
-// import logoXD from "assets/images/small-logos/logo-xd.svg";
-// import logoAtlassian from "assets/images/small-logos/logo-atlassian.svg";
-// import logoSlack from "assets/images/small-logos/logo-slack.svg";
-// import logoSpotify from "assets/images/small-logos/logo-spotify.svg";
-// import logoJira from "assets/images/small-logos/logo-jira.svg";
-// import logoInvesion from "assets/images/small-logos/logo-invision.svg";
-// import team1 from "assets/images/team-1.jpg";
-// import team2 from "assets/images/team-2.jpg";
-// import team3 from "assets/images/team-3.jpg";
-// import team4 from "assets/images/team-4.jpg";
-// import Rating from "@mui/material/Rating";
-import MDButton from "components/MDButton";
+// import MDButton from "components/MDButton";
 // import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import axios from "axios";
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import { red } from "@mui/material/colors";
 
-export default function dealsdata( Data ) {
+export default function dealsdata( Data,handlesallbids,handledeals ) {
 
 
 
@@ -49,7 +16,8 @@ export default function dealsdata( Data ) {
       console.log(response.data.data);
       if (response.data.data === "success") {
         alert("Deal Closed Successfully");
-        // window.location.reload(); 
+        handledeals();
+        handlesallbids();
        }
        else {
             alert("Deal Close Failed");
@@ -62,7 +30,7 @@ export default function dealsdata( Data ) {
     );
 
   return {
-    columns: [
+    dealcolumns: [
     //   { Header: " ", accessor: "dealid", width: "30%", align: "left" },// keep this column hidden 
       { Header: "Product", accessor: "dealproduct", width: "30%", align: "center" },
       { Header: "Quantity", accessor: "dealquantity", align: "center" },
@@ -71,7 +39,7 @@ export default function dealsdata( Data ) {
       { Header: "Action", accessor: "dealaction", width: "15%", align: "center" },
     ],
 
-    rows: 
+    dealrows: 
       Data.map((item) =>({
         dealid: item.dealid,
         dealproduct: item.dealproduct,
@@ -79,9 +47,7 @@ export default function dealsdata( Data ) {
         dealbudget: item.dealbudget,
         dealstatus: item.dealstatus,
         dealaction: (
-            <MDButton variant="gradient" color="info" onClick={() =>setdealaction(item.dealid)}>
-                Close Deal
-            </MDButton>
+            <RemoveCircleOutlineIcon fontSize="medium" sx={{ color: red[500] }} onClick={() => setdealaction(item.dealid)} />
         ),
           }))
   };
