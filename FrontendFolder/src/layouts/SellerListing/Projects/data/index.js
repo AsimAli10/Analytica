@@ -34,8 +34,7 @@ import MDTypography from "components/MDTypography";
 // import team3 from "assets/images/team-3.jpg";
 // import team4 from "assets/images/team-4.jpg";
 import Rating from "@mui/material/Rating";
-import MDButton from "components/MDButton";
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import LaunchIcon from '@mui/icons-material/Launch';
 
 export default function data( Data ) {
 
@@ -68,10 +67,7 @@ export default function data( Data ) {
             <Rating name="read-only" value={item.rating} readOnly />
           ),
           link: (
-            <MDButton variant="gradient" color="info" href={item.link} target="_blank">
-            Buy
-            &nbsp;&nbsp;<ArrowForwardIosIcon/>
-            </MDButton>
+            <LaunchIcon fontSize="medium" href={item.link}/>
           ),
           }))
   };

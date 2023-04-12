@@ -1,4 +1,5 @@
 #imports
+from concurrent.futures import ThreadPoolExecutor
 from pmdarima import auto_arima
 import csv
 import ctypes
@@ -204,18 +205,22 @@ class ProductCatalouge:
         product_urls = ["http:" + link for link in product_urls if "//www.daraz.pk/" in link]
 
         rating_pattern = r'"ratings":({[^}]+})'
-        ratings = []
-        for url in product_urls:
+        
+        def get_rating(url):
             product_response = requests.get(url)
             product_html = product_response.text
             
             rating_match = re.search(rating_pattern, product_html)
             rating_dict = json.loads(rating_match.group(1)) if rating_match else {}
             rating = rating_dict.get('average', '0')
-            ratings.append(rating)
+            return rating
+        
+        with ThreadPoolExecutor(max_workers=len(product_urls)) as executor:
+            ratings = list(executor.map(get_rating, product_urls))
 
         sellers = list(zip(seller_names, product_urls, ratings, prices))
         sellers = sorted(sellers, key=lambda x: x[2], reverse=True)
+
 
         return sellers
 

@@ -127,13 +127,14 @@ function Projects() {
             </Grid>  
         </MDBox>
       </MDBox>
-      <MDBox>
+      <MDBox mt={-4}>
         <DataTable
           table={{ columns, rows }}
           showTotalEntries={false}
-          isSorted={false}
+          isSorted
           noEndBorder
           entriesPerPage={false}
+          
         />
       </MDBox>
     </Card>
