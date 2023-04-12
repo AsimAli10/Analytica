@@ -49,7 +49,7 @@ function DataTable({
   noEndBorder,
   tableHeading,
 }) {
-  const defaultValue = entriesPerPage.defaultValue ? entriesPerPage.defaultValue : 10;
+  const defaultValue = entriesPerPage.defaultValue ? entriesPerPage.defaultValue : 5;
   const entries = entriesPerPage.entries
     ? entriesPerPage.entries.map((el) => el.toString())
     : ["5", "10", "15", "20", "25"];
@@ -88,10 +88,7 @@ function DataTable({
   const setEntriesPerPage = (value) => setPageSize(value);
   
   // tableHeading prop type
-  DataTable.propTypes = {
-    tableHeading: PropTypes.string.isRequired,
-    // ...
-  };
+
   // Render the paginations
   const renderPagination = pageOptions.map((option) => (
     <MDPagination
@@ -312,6 +309,7 @@ DataTable.propTypes = {
   }),
   isSorted: PropTypes.bool,
   noEndBorder: PropTypes.bool,
+  tableHeading: PropTypes.string.isRequired,
 };
 
 export default DataTable;
