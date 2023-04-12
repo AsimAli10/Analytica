@@ -64,7 +64,7 @@ export default function App() {
     whiteSidenav,
     darkMode,
   } = controller;
-  const [onMouseEnter, setOnMouseEnter] = useState(false);
+  const [onMouseEnter, setOnMouseEnter] = useState(true);
   const [rtlCache, setRtlCache] = useState(null);
   const { pathname } = useLocation();
 
