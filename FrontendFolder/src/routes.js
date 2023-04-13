@@ -104,14 +104,6 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Marketplace",
-    key: "RequestDeal",
-    icon: <Icon fontSize="small">store</Icon>,
-    route: "/RequestDeal",
-    component: <RequestDeal />,
-  },
-  {
-    type: "collapse",
     name: "Seller Listing",
     key: "SellerListing",
     icon: <Icon fontSize="small">segment</Icon>,
@@ -157,6 +149,14 @@ const routes = [
     icon: <Icon fontSize="small">analytics</Icon>,
     route: "/Demographicsinfo",
     component: <DemographicsInfo />,
+  },
+  {
+    type: "collapse",
+    name: "Marketplace",
+    key: "RequestDeal",
+    icon: <Icon fontSize="small">store</Icon>,
+    route: "/RequestDeal",
+    component: <RequestDeal />,
   },
   {
     type: "collapse",

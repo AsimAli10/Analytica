@@ -27,7 +27,7 @@ import MDInput from "components/MDInput";
 import MDButton from "components/MDButton";
 
 // Authentication layout components
-import CoverLayout from "layouts/authentication/components/CoverLayout";
+// import CoverLayout from "layouts/authentication/components/CoverLayout";
 
 // Images
 import bgImage from "assets/images/bg-sign-up-cover.jpeg";
@@ -35,6 +35,7 @@ import bgImage from "assets/images/bg-sign-up-cover.jpeg";
 import { useState } from "react";
 import axios from "axios";
 import { FormControl, NativeSelect } from "@mui/material";
+import BasicLayout from "../components/BasicLayout";
 
 function Cover() {
   const [userrole, setUserrole] = useState("Seller");
@@ -62,7 +63,7 @@ function Cover() {
 
 
   return (
-    <CoverLayout image={bgImage}>
+    <BasicLayout image={bgImage}>
       <Card>
         <MDBox
           variant="gradient"
@@ -71,8 +72,8 @@ function Cover() {
           coloredShadow="success"
           mx={2}
           mt={-3}
-          p={3}
-          mb={1}
+          p={1}
+          mb={0}
           textAlign="center"
         >
           <MDTypography variant="h4" fontWeight="medium" color="white" mt={1}>
@@ -134,6 +135,7 @@ function Cover() {
               >
                 <option value="Seller">Seller</option>
                 <option value="WholeSeller">WholeSeller</option>
+                <option value="Buyer">Buyer</option>
               </NativeSelect>
             </FormControl>
             <MDBox display="flex" alignItems="center" ml={-1}>
@@ -180,7 +182,7 @@ function Cover() {
           </MDBox>
         </MDBox>
       </Card>
-    </CoverLayout>
+    </BasicLayout>
   );
 }
 

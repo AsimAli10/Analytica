@@ -150,6 +150,24 @@ export default function App() {
       setRole(checkRole);
       console.log(checkRole);
     }, []);
+    let filteredRoutes;
+    if (role === "Seller") {
+      filteredRoutes = routes.filter((route) => 
+        route.key !== "sign-up" && route.key !== "WholeSellerDashboard" && route.key !== "SellerListing"
+      );
+    } else if (role === "WholeSeller") {
+      filteredRoutes = routes.filter((route) => 
+        route.key === "WholeSellerDashboard" || route.key === "sign-in"
+      );
+    } else if (role === "Buyer"){
+      filteredRoutes = routes.filter((route) => 
+        route.key === "SellerListing" || route.key === "sign-in"
+      );
+      
+    }
+
+    // Assign filteredRoutes to the routes object
+   // routes = filteredRoutes;
 
   return direction === "rtl" ? (
     <CacheProvider value={rtlCache}>
@@ -185,7 +203,8 @@ export default function App() {
             color={sidenavColor}
             brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandWhite : brandWhite}
             brandName="Analytica"
-            routes={role==="Seller" ? routes.filter((route) => route.key !== "sign-up" && route.key !== "WholeSellerDashboard") : routes.filter((route) => route.key === "WholeSellerDashboard" || route.key === "sign-in")}
+            routes={filteredRoutes}
+          
             onMouseEnter={handleOnMouseEnter}
             onMouseLeave={handleOnMouseLeave}
           />

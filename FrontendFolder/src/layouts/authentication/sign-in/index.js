@@ -32,18 +32,19 @@ import BasicLayout from "layouts/authentication/components/BasicLayout";
 import { useEffect, useState } from "react";
 // Images
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
-import { FormControl, NativeSelect } from "@mui/material";
+
 import axios from "axios";
+import { Grid } from "@mui/material";
 
 function Basic() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [userrole, setUserrole] = useState("Seller");
   const [loggedIn, setLoggedIn] = useState(false);
+  console.log(loggedIn);
 
 
   // pass data to login api and get response
-  const handleSubmit = () => {
+  const handleSubmit = (userrole) => {
     axios.post("http://127.0.0.1:5000/login", { email, password,userrole })
     .then((response) => {
       console.log(response);
@@ -62,6 +63,9 @@ function Basic() {
         else if (userrole === "WholeSeller") {
           window.location.href = "/WholeSellerDashboard";
         }
+        else if (userrole === "Buyer") {
+          window.location.href = "/SellerListing";
+        }
       }
     }
     )
@@ -72,7 +76,7 @@ useEffect(() => {
 
   return (
     <BasicLayout image={bgImage}>
-      <Card>
+      <Card >
         <MDBox
           variant="gradient"
           bgColor="info"
@@ -105,40 +109,38 @@ useEffect(() => {
 
               } type="password" label="Password" fullWidth />
             </MDBox>
-            <FormControl fullWidth>
-              <NativeSelect
-                defaultValue="Seller"
-                inputProps={{
-                  name: "userrole",
-                  id: "userrole"
-                }}
-                onChange={
-                  (event) => {
-                    setUserrole(event.target.value);
-                    if(loggedIn){
-                      // clear input fields
-                      setEmail("");
-                      setPassword("");
-                      setUserrole("");
-                    }
-
-                  }
-                }
-              >
-                <option value="Seller">Seller</option>
-                <option value="WholeSeller">WholeSeller</option>
-              </NativeSelect>
-            </FormControl>
-            <MDBox mt={4} mb={1}>
+            <MDBox mb={2} mt={4}>
               <MDButton
                 fullWidth
                 variant="contained"
                 color="info"
-                onClick={handleSubmit}
+                onClick={() => handleSubmit("Seller")}
               >
-                Sign in
+                Sign in as Retailer
               </MDButton>
             </MDBox>
+            <Grid container spacing={2} >
+              <Grid item xs={12} sm={3} md={6} >
+                <MDButton
+                  fullWidth
+                  variant="contained"
+                  color="info"
+                  onClick={() => handleSubmit("WholeSeller")}
+                >
+                  WholeSeller
+                </MDButton>
+              </Grid>
+              <Grid item xs={12} sm={3} md={6}>
+                <MDButton
+                  fullWidth
+                  variant="contained"
+                  color="info"
+                  onClick={() => handleSubmit("Buyer")}
+                >
+                  Buyer
+                </MDButton>
+              </Grid>
+            </Grid>
             <MDBox mt={3} mb={1} textAlign="center">
               <MDTypography variant="button" color="text">
                 Don&apos;t have an account?{" "}
