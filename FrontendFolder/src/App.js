@@ -185,7 +185,7 @@ export default function App() {
             color={sidenavColor}
             brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandWhite : brandWhite}
             brandName="Analytica"
-            routes={role==="Seller" ? routes.filter((route) => route.key !== "sign-up" && route.key !== "wholeSeller-dashboard") : routes.filter((route) => route.key === "wholeSeller-dashboard" || route.key === "sign-in")}
+            routes={role==="Seller" ? routes.filter((route) => route.key !== "sign-up" && route.key !== "WholeSellerDashboard") : routes.filter((route) => route.key === "WholeSellerDashboard" || route.key === "sign-in")}
             onMouseEnter={handleOnMouseEnter}
             onMouseLeave={handleOnMouseLeave}
           />

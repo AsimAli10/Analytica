@@ -47,6 +47,7 @@ import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
 import WholeSellerDashboard from "layouts/WholeSellerDashboard";
 import SellerListing from "layouts/SellerListing";
+import ReviewAnalytics from "layouts/reviewanalytics";
 // @mui icons
 import Icon from "@mui/material/Icon";
 import OptimalCapitalUtilization from "layouts/OptimalCapitalUtilization";
@@ -112,7 +113,7 @@ const routes = [
     type: "collapse",
     name: "Seller Listing",
     key: "SellerListing",
-    icon: <Icon fontSize="small">store</Icon>,
+    icon: <Icon fontSize="small">segment</Icon>,
     route: "/SellerListing",
     component: <SellerListing />,
   },
@@ -135,10 +136,18 @@ const routes = [
   {
     type: "collapse",
     name: "WholeSeller Dashboard",
-    key: "wholeSeller-dashboard",
+    key: "WholeSellerDashboard",
     icon: <Icon fontSize="small">dashboard</Icon>,
     route: "/WholeSellerDashboard",
     component: <WholeSellerDashboard />,
+  },
+  {
+    type: "collapse",
+    name: "Reviews Analytics",
+    key: "ReviewAnalytics",
+    icon: <Icon fontSize="small">reviews</Icon>,
+    route: "/ReviewAnalytics",
+    component: <ReviewAnalytics />,
   },
   {
     type: "collapse",

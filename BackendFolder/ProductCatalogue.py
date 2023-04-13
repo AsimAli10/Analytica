@@ -229,4 +229,19 @@ class ProductCatalouge:
         daraz_url = f"https://www.daraz.pk/catalog/?q={product}"
         daraz_sellers = self.getProductSellersListings(daraz_url, "sellerName")
         return daraz_sellers
+    
+    def getProductFeatures(self,product,category):
+        concatenation = product + ".csv"
+        data = pd.read_csv("output.csv")
+        for i in range(len(data)):
+            if concatenation == data["Product Name"][i]:
+                # print(data["Review"][i])
+                # convert this string into a list
+                review = data["Review"][i]
+                review = review.replace("[", "")
+                review = review.replace("]", "")
+                review = review.replace("'", "")
+                review = review.split(",")
+                return review
+
 

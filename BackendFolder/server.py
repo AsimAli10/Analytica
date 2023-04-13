@@ -221,5 +221,18 @@ def getsellerlisting():
     print(responsedata)
     return {"data": responsedata}
 
+#get product features
+@app.route('/getproductfeatures', methods=['POST', 'GET'])
+@flask_cors.cross_origin()
+def getproductfeatures():
+    print("called")
+    product=request.json.get('product')
+    category=request.json.get('category')
+    print(product)
+    responsedata = analyzer.getProductFeatures(product,category)
+    print("response",responsedata)
+    return {"data": responsedata}
+
+
 if __name__ == '__main__':
     app.run(debug=True)

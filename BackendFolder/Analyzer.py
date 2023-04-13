@@ -77,3 +77,6 @@ class Analyzer:
     
     def getSellerListings(self,product):
         return self.productcatalouge.getSellersList(product)
+    
+    def getProductFeatures(self,product,category):
+        return self.productcatalouge.getProductFeatures(product,category)
