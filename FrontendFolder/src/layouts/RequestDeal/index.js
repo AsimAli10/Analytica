@@ -168,8 +168,8 @@ function RequestDeal() {
                   Request a Deal
                 </MDTypography>
               </MDBox>
-              <Grid container spacing={4} mt={2} mb={4} mx={2} >
-                <Grid item  mt={2} mx={4}>
+              <Grid container spacing={4} mt={1} py={2} px={10}>
+                <Grid item  xs={12} sm={6} md={3} p={1}>
                   <FormControl  >
                     <NativeSelect
                       defaultValue="Laptops"
@@ -185,7 +185,7 @@ function RequestDeal() {
                     </NativeSelect>
                   </FormControl>
                 </Grid>
-                <Grid item mt={2}>
+                <Grid item xs={12} sm={6} md={3} p={1}>
                   <MDBox  mb={2} mx={4}>
                     <MDInput
                       onChange={(e) => setQuantity(e.target.value)}
@@ -194,7 +194,7 @@ function RequestDeal() {
                     />
                   </MDBox>
                 </Grid>
-                <Grid item mt={2}>
+                <Grid item xs={12} sm={6} md={3} p={1}>
                   <MDBox mb={2} mx={4}>
                     <MDInput
                       onChange={(e) => setBudget(e.target.value)}
@@ -203,7 +203,7 @@ function RequestDeal() {
                     />
                 </MDBox>
                 </Grid>
-                <Grid item xs={2} mt={2}>
+                <Grid item xs={12} sm={6} md={3} p={1}>
                   <MDButton
                   variant="contained"
                   color="primary"

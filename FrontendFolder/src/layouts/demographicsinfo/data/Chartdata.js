@@ -20,27 +20,22 @@ export default function formatDataForChart(data) {
     const genderData = Object.values(data.gender);
     const cityLabels = Object.keys(data.city);
     const cityData = Object.values(data.city);
-    console.log(genderLabels);
-    console.log(genderData);
+    const ageDataset = { label: 'Age Group', data: ageData };
     const ageChart = {
       labels: ageLabels,
-      datasets: [
-        { label: 'Age Group', data: ageData }
-      ]
+      datasets: ageDataset
     };
   
+    const genderDataset={label: 'Gender', data: genderData}
     const genderChart = {
       labels: genderLabels,
-      datasets: [
-        { label: 'Gender', data: genderData }
-      ]
+      datasets: genderDataset
     };
   
+    const cityDataset={label: 'City', data: cityData}
     const cityChart = {
       labels: cityLabels,
-      datasets: [
-        { label: 'City', data: cityData }
-      ]
+      datasets: cityDataset
     };
   
     return { ageChart, genderChart, cityChart };

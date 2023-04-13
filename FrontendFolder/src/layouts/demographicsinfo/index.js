@@ -14,8 +14,12 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 // import PieChart from "examples/Charts/PieChart";
-import VerticalBarChart from "examples/Charts/BarCharts/VerticalBarChart";
+import ReportsBarChart from "examples/Charts/BarCharts/ReportsBarChart";
+// import PieChart from "examples/Charts/PieChart";
+// import VerticalBarChart from "examples/Charts/BarCharts/VerticalBarChart";
 import formatDataForChart from "./data/Chartdata";
+
+
 
 function DemographicsInfo() {
 
@@ -76,7 +80,7 @@ function DemographicsInfo() {
           <Grid container spacing={4}>
             <Grid item xs={12} sm={6} md={4}>
               <MDBox mb={3}>
-                <VerticalBarChart
+                <ReportsBarChart
                   color="info"
                   title="Age Wise Sales"
                   description="This is the age wise sales of the product."
@@ -87,7 +91,7 @@ function DemographicsInfo() {
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
               <MDBox mb={3}>
-                <VerticalBarChart
+                <ReportsBarChart
                   color="success"
                   title="Gender Wise Sales"
                   description="This is the gender wise sales of the product."
@@ -98,8 +102,8 @@ function DemographicsInfo() {
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
               <MDBox mb={3}>
-                <VerticalBarChart
-                  color="success"
+                <ReportsBarChart
+                  color="primary"
                   title="City Wise Sales"
                   description="This is the city wise sales of the product."
                   date="just updated"

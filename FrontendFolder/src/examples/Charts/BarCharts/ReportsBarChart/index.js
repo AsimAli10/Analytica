@@ -35,6 +35,7 @@ import configs from "examples/Charts/BarCharts/ReportsBarChart/configs";
 
 function ReportsBarChart({ color, title, description, date, chart }) {
   const { data, options } = configs(chart.labels || [], chart.datasets || {});
+  console.log(data)
 
   return (
     <Card sx={{ height: "100%" }}>

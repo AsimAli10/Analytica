@@ -14,6 +14,7 @@ function OptimalCapitalUtilization() {
     axios.post("http://127.0.0.1:5000/optimalutilization")
     .then((res) => {
       setData(res.data.data)
+      console.log(res.data.data)
     })
 
     axios.post("http://127.0.0.1:5000/bestproduct")

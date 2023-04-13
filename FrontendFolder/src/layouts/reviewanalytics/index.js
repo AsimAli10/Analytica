@@ -190,7 +190,7 @@ function ReviewAnalytics() {
             </MDBox>
             <Grid container spacing={4} mt={1} py={3} px={2}>
                 {features.map((feature) => (
-                <Grid item xs={12} sm={6} md={4} key={feature.id} p={1}>
+                <Grid item xs={12} sm={6} md={3} key={feature.id} p={1}>
                     <Card>
                     <MDBox p={2} borderRadius='lg' sx={{
                                         '&:hover': {
