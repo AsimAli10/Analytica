@@ -243,5 +243,31 @@ class ProductCatalouge:
                 review = review.replace("'", "")
                 review = review.split(",")
                 return review
+            
+
+    def getDemographics(self, product):
+    # Load the CSV file into a list of dictionaries
+        with open(product + '.csv', 'r') as f:
+            header = f.readline().strip().split(',')
+            data = [dict(zip(header, line.strip().split(','))) for line in f]
+
+        # Create age group bins using the range() function
+        bins = [0, 18, 25, 35, 50, 100]
+        labels = ['<18', '18-25', '26-35', '36-50', '50+']
+        age_group_counts = {label: 0 for label in labels}
+        gender_counts = {'Male': 0, 'Female': 0, 'Other': 0}
+        city_counts = {}
+
+        # Group the data by age group, gender, and city, and count the number of laptop sales for each group
+        for row in data:
+            age = int(row['age'])
+            age_group = next((label for label, max_age in zip(labels, bins[1:]) if age < max_age), labels[-1])
+            age_group_counts[age_group] += 1
+            gender_counts[row['Gender']] += 1
+            city_counts[row['City']] = city_counts.get(row['City'], 0) + 1
+
+        # return a single dictionary containing all the counts
+        return {'age_group': age_group_counts, 'gender': gender_counts, 'city': city_counts}
+
 
 

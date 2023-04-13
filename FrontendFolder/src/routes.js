@@ -51,6 +51,7 @@ import ReviewAnalytics from "layouts/reviewanalytics";
 // @mui icons
 import Icon from "@mui/material/Icon";
 import OptimalCapitalUtilization from "layouts/OptimalCapitalUtilization";
+import DemographicsInfo from "layouts/demographicsinfo";
 
 const routes = [
   {
@@ -148,6 +149,14 @@ const routes = [
     icon: <Icon fontSize="small">reviews</Icon>,
     route: "/ReviewAnalytics",
     component: <ReviewAnalytics />,
+  },
+  {
+    type: "collapse",
+    name: "Demographics Info",
+    key: "Demographicsinfo",
+    icon: <Icon fontSize="small">analytics</Icon>,
+    route: "/Demographicsinfo",
+    component: <DemographicsInfo />,
   },
   {
     type: "collapse",

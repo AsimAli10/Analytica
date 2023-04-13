@@ -80,3 +80,6 @@ class Analyzer:
     
     def getProductFeatures(self,product,category):
         return self.productcatalouge.getProductFeatures(product,category)
+    
+    def getDemographics(self,product):
+        return self.productcatalouge.getDemographics(product)

@@ -233,6 +233,17 @@ def getproductfeatures():
     print("response",responsedata)
     return {"data": responsedata}
 
+#get demographhics data for a product
+@app.route('/getdemographics', methods=['POST', 'GET'])
+@flask_cors.cross_origin()
+def getdemographics():
+    print("called")
+    product=request.json.get('product')
+    print(product)
+    responsedata = analyzer.getDemographics(product)
+    print("response",responsedata)
+    return {"data": responsedata}
+
 
 if __name__ == '__main__':
     app.run(debug=True)
