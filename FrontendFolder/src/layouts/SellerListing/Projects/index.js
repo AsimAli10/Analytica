@@ -106,27 +106,24 @@ function Projects() {
 
   return (
     <Card >
-      <MDBox display="flex" justifyContent="space-between" alignItems="center" p={3} >
-        <MDBox>
-          
-          <Grid container spacing={10} mt={-8} mb={0} mx={0} >
-              <Grid item mt={0} mx={20} marginLeft={-10}>
-                <MDTypography variant="h6" gutterBottom>
-                  Product Sellers
-                </MDTypography>
-              </Grid>
-              <Grid item mt={-2} marginLeft={60}>
-                <MDBox pr={1} item>
-                  <MDInput label="Search here" onKeyDown={handleKeyDown} />
-                </MDBox>
-              </Grid>
-              <Grid item mt={-1} marginLeft={-5}> 
-                <UnfoldMoreIcon onClick={openMenu}/>
-              </Grid>  
-              {renderMenu}
-            </Grid>  
-        </MDBox>
+      <MDBox display="flex" justifyContent="space-between" alignItems="center" p={1}>
+        <Grid container spacing={4} mt={1} py={0} px={2} display="flex" justifyContent="flex-end">
+          <Grid item xs={12} sm={12} md={6}>
+            <MDTypography variant="h6" gutterBottom>
+              Product Sellers
+            </MDTypography>
+          </Grid>
+          <Grid item xs={12} sm={12} md={6}  display="flex" justifyContent="flex-end">
+            <MDBox item ml="auto">
+              <MDInput label="Search here" onKeyDown={handleKeyDown} />
+              <UnfoldMoreIcon onClick={openMenu} style={{marginLeft: '8px' }} />
+            </MDBox>
+          </Grid>
+        </Grid>
+        {renderMenu}
       </MDBox>
+
+
       <MDBox mt={-4}>
         <DataTable
           table={{ columns, rows }}
