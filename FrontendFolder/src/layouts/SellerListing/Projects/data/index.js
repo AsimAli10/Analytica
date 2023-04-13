@@ -67,7 +67,7 @@ export default function data( Data ) {
             <Rating name="read-only" value={item.rating} readOnly />
           ),
           link: (
-            <LaunchIcon fontSize="medium" href={item.link}/>
+            <LaunchIcon fontSize="medium" onClick={() => window.open(item.link, '_blank')} style={{ cursor: "pointer" }}/>
           ),
           }))
   };

@@ -62,10 +62,10 @@ export default function allbidsdata( Data,handleconfirmedbids,handlesallbids,han
         dealbidder: item.dealbidder,
         dealbidstatus: item.dealbidstatus,
         dealbidaccept: (
-            <CheckIcon fontSize="medium" color="success" onClick={() => setdealaccept(item.dealbidid)} />
+            <CheckIcon fontSize="medium" color="success" onClick={() => setdealaccept(item.dealbidid)} style={{ cursor: "pointer" }}/>
         ),
         dealbidreject: (   
-            <RemoveCircleOutlineIcon fontSize="medium" sx={{ color: red[500] }} onClick={() => setdealreject(item.dealbidid)} />
+            <RemoveCircleOutlineIcon fontSize="medium" sx={{ color: red[500] ,cursor: "pointer"}} onClick={() => setdealreject(item.dealbidid)} />
         ),
           }))
   };

@@ -47,7 +47,7 @@ export default function dealsdata( Data,handlesallbids,handledeals ) {
         dealbudget: item.dealbudget,
         dealstatus: item.dealstatus,
         dealaction: (
-            <RemoveCircleOutlineIcon fontSize="medium" sx={{ color: red[500] }} onClick={() => setdealaction(item.dealid)} />
+            <RemoveCircleOutlineIcon fontSize="medium" sx={{ color: red[500],cursor: "pointer" }} onClick={() => setdealaction(item.dealid)} />
         ),
           }))
   };

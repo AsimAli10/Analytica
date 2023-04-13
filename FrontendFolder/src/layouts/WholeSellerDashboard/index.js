@@ -24,25 +24,7 @@ function Dashboard() {
   const [BidData, setBidData] = useState([]);
   const [confirmedbid, setConfirmedbid] = useState([]);
   const [opendeals, setOpendeals] = useState([]);
-  const handleSubmit = (dealid,bidamount) => {
-    setBidstatus("Pending");
-    axios.post("http://127.0.0.1:5000/makebid", { dealid,bidamount,bidstatus,bidBy:JSON.parse(sessionStorage.getItem("user")) })
-      .then((response) => {
-        console.log(response);
-        if (response.data.data === "Invalid") {
-          alert("Invalid Deal ID. Please try again.");
-        }
-        else if (response.data.data === "success") {
-          alert("Bid Placed successfully.");
-        }
-        else {
-          alert("error");
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  
 
   // get open deals
   const getOpenDeals = () => {
@@ -106,6 +88,28 @@ function Dashboard() {
       });
   };
 
+  const handleSubmit = (dealid,bidamount) => {
+    setBidstatus("Pending");
+    axios.post("http://127.0.0.1:5000/makebid", { dealid,bidamount,bidstatus,bidBy:JSON.parse(sessionStorage.getItem("user")) })
+      .then((response) => {
+        console.log(response);
+        if (response.data.data === "Invalid") {
+          alert("Invalid Deal ID. Please try again.");
+        }
+        else if (response.data.data === "success") {
+          alert("Bid Placed successfully.");
+          getOpenDeals();
+          getBiddedDeals();
+          getConfirmedBids();
+        }
+        else {
+          alert("error");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   const {dealcolumns, dealrows} = dealsdata(opendeals, handleSubmit);
   const {bidcolumns, bidrows} = allbidsdata(BidData);
   const {confirmedbidcolumns, confirmedbidrows} = confirmedbidsdata(confirmedbid);
