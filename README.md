@@ -9,8 +9,14 @@ and insights on market trends and the performance of individual products, as wel
 2. Optimal capital utilization: Analytica helps businesses optimize their capital by providing recommendations on the most profitable 
 products to sell and how to allocate capital to maximize returns.
 
-3. Virtual marketplace with reverse auctioning system: Sellers can name their price for products and wholesalers can place bids to purchase them, 
+3. Demographic based insights to support the marketing decisions based on city, age and gender wise sales data.
+
+4. Product shortcomings and positive features using review analytics to provides the weakness of product for more focus.
+
+5. Virtual marketplace with reverse auctioning system: Sellers can name their price for products and wholesalers can place bids to purchase them, 
 creating a dynamic and competitive marketplace.
+
+6. Sellers listing based on seller's rating and price offered for the avergae buyer to get a best value deal on the market.
 
 # Requirements:
 
@@ -27,7 +33,7 @@ Installation Guide:
 
 3. run the server side using (python server.py) in backendFolder.
 
-4. run the client side by npm run start in react-main-dashboard
+4. run the client side by npm run start in FrontendFolder
 
 
 
