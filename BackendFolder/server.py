@@ -233,6 +233,19 @@ def getproductfeatures():
     print("response",responsedata)
     return {"data": responsedata}
 
+#get product features
+@app.route('/getproductpositivefeatures', methods=['POST', 'GET'])
+@flask_cors.cross_origin()
+def getproductpositivefeatures():
+    print("called")
+    product=request.json.get('product')
+    category=request.json.get('category')
+    print(product)
+    responsedata = analyzer.getProductPositiveFeatures(product,category)
+    print("response",responsedata)
+    return {"data": responsedata}
+
+
 #get demographhics data for a product
 @app.route('/getdemographics', methods=['POST', 'GET'])
 @flask_cors.cross_origin()

@@ -81,5 +81,8 @@ class Analyzer:
     def getProductFeatures(self,product,category):
         return self.productcatalouge.getProductFeatures(product,category)
     
+    def getProductPositiveFeatures(self,product,category):
+        return self.productcatalouge.getProductPositiveFeatures(product,category)
+    
     def getDemographics(self,product):
         return self.productcatalouge.getDemographics(product)

@@ -243,6 +243,22 @@ class ProductCatalouge:
                 review = review.replace("'", "")
                 review = review.split(",")
                 return review
+    
+    def getProductPositiveFeatures(self,product,category):
+        concatenation = product + ".csv"
+        data = pd.read_csv("positive_file.csv") 
+        for i in range(len(data)):
+            if concatenation == data["Product Name"][i]:
+                # print(data["Review"][i])
+                # convert this string into a list
+                review = data["Review"][i]
+                review = review.replace("[", "")
+                review = review.replace("]", "")
+                review = review.replace("'", "")
+                review = review.split(",")
+                return review
+        return "No Positive Features"
+                
             
 
     def getDemographics(self, product):

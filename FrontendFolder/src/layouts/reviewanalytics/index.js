@@ -19,6 +19,7 @@ function ReviewAnalytics() {
   const [selectedCategory, setSelectedCategory] = useState("Mobiles");
   const [selectedProduct, setSelectedProduct] = useState("Apple iPhone 11 Pro");
   const [features, setFeatures] = useState([]);
+  const [positivefeatures, setpositiveFeatures] = useState([]);
 
   useEffect(() => {
     axios.post("http://localhost:5000/getproductfeatures", {product:selectedProduct , category:selectedCategory})
@@ -34,6 +35,20 @@ function ReviewAnalytics() {
             console.log(err);
         }
         );
+
+        axios.post("http://localhost:5000/getproductpositivefeatures", {product:selectedProduct , category:selectedCategory})
+        .then((res) => {
+            
+            const responseData = res.data.data;
+            // console.log(responseData);
+            setpositiveFeatures(responseData);
+            console.log(positivefeatures);
+
+        })
+        .catch((err) => {
+            console.log(err);
+        }
+        );
   }, []);
 
     const handleCategoryChange = (event) => {
@@ -41,21 +56,36 @@ function ReviewAnalytics() {
     };
 
     const handleProductChange = (event) => {
-        setSelectedProduct(event.target.value);
-        axios.post("http://localhost:5000/getproductfeatures", {product:selectedProduct , category:selectedCategory})
+      const newSelectedProduct = event.target.value;
+      setSelectedProduct(newSelectedProduct);
+    
+      axios
+        .post("http://localhost:5000/getproductfeatures", {
+          product: newSelectedProduct,
+          category: selectedCategory,
+        })
         .then((res) => {
-            
-            const responseData = res.data.data;
-            // console.log(responseData);
-            setFeatures(responseData);
-            console.log(features);
-
+          const responseData = res.data.data;
+          setFeatures(responseData);
         })
         .catch((err) => {
-            console.log(err);
-        }
-        );
+          console.log(err);
+        });
+    
+      axios
+        .post("http://localhost:5000/getproductpositivefeatures", {
+          product: newSelectedProduct,
+          category: selectedCategory,
+        })
+        .then((res) => {
+          const responseData = res.data.data;
+          setpositiveFeatures(responseData);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     };
+    
 
   return (
     <DashboardLayout>
@@ -198,6 +228,46 @@ function ReviewAnalytics() {
                                             color: 'white',
                                             transition: 'all 0.3s ease-in-out',
                                             boxShadow: '0 0 10px 0 rgba(0,0,0,0.2)',
+                                            cursor: 'pointer',
+                                        },
+                                        
+
+
+                                        }}>
+                        <MDTypography variant="subtitle1" color="white">
+                        {feature}
+                        </MDTypography>
+
+                    </MDBox>
+                    </Card>
+                </Grid>
+                ))}
+            </Grid>
+            
+            <MDBox
+                mx={2}
+                mt={2}
+                py={3}
+                px={2}
+                variant="gradient"
+                bgColor="success"
+                borderRadius="lg"
+                coloredShadow="success"
+            >
+                <MDTypography variant="h5" color="white">
+                Positive Features
+                </MDTypography>
+            </MDBox>
+            <Grid container spacing={4} mt={1} py={3} px={2}>
+                {positivefeatures.map((feature) => (
+                <Grid item xs={12} sm={6} md={3} key={feature.id} p={1}>
+                    <Card>
+                    <MDBox p={2} borderRadius='lg' sx={{
+                                        '&:hover': {
+                                            backgroundColor: 'green',
+                                            color: 'white',
+                                            transition: 'all 0.3s ease-in-out',
+                                            boxShadow: '0 0 10px 0 rgba(0,128,0,0.2)',
                                             cursor: 'pointer',
                                         },
                                         
