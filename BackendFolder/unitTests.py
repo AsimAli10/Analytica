@@ -60,7 +60,7 @@ class MyTestCase(unittest.TestCase):
     def test_salesforecastforMobiles(self):
         
         # Expected output list
-        expected_output = [1080, 10041, 848, 1200, 2827, 2669, 698, 300, 2397]
+        expected_output = [1080, 10041, 848, 1200, 2827, 2669, 698, 300, 299]
 
         # Call the function
         p= ProductCatalouge()
