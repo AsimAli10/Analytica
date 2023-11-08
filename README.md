@@ -1,10 +1,6 @@
 # Analytica
 Welcome to the Ecommerce Analytics and Future Predictions repository! This project is a virtual marketplace for ecommerce sellers and wholesalers that utilizes a reverse auctioning system.
 
-# Demo:
-[![Video](https://drive.google.com/uc?id=1NkEyX7gjtMqg0Wt9bo4aTwlX5K469Rq3)](https://drive.google.com/uc?id=1NkEyX7gjtMqg0Wt9bo4aTwlX5K469Rq3)
-
-
 # Features:
 
 1. Ecommerce sales insights and forecasts: Analytica helps sellers and wholesalers make informed decisions by providing data 
@@ -39,5 +35,7 @@ Installation Guide:
 
 4. run the client side by npm run start in FrontendFolder
 
+# Demo:
+Email at asimaliofficial0@gmail.com to get the demo for this project.
 
 
